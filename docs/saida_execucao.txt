@@ -1,0 +1,73 @@
+Execução em 19/11/2026 22:09:34
+
+==================================================================
+PROBLEMA 1 - PREVISÃO DO CLIMA (cadeia regular)
+==================================================================
+
+Matriz de transição P (linha = hoje, coluna = amanhã):
+[[0.6 0.3 0.1]
+ [0.3 0.4 0.3]
+ [0.2 0.3 0.5]]
+
+(a) Hoje está chovendo. Previsão para os próximos dias:
+ Dia |     Sol | Nublado |   Chuva
+   1 |  20.00% |  30.00% |  50.00%
+   2 |  31.00% |  33.00% |  36.00%
+   3 |  35.70% |  33.30% |  31.00%
+   5 |  38.38% |  33.33% |  28.29%
+   7 |  38.81% |  33.33% |  27.86%
+  10 |  38.88% |  33.33% |  27.78%
+
+(b) Distribuição estacionária (longo prazo):
+    Ensolarado : 0.3889  -> cerca de 141.9 dias por ano
+    Nublado    : 0.3333  -> cerca de 121.7 dias por ano
+    Chuvoso    : 0.2778  -> cerca de 101.4 dias por ano
+
+(c) Tempo médio de retorno (1/pi_i):
+    Ensolarado : 2.57 dias
+    Nublado    : 3.00 dias
+    Chuvoso    : 3.60 dias
+
+(d) Simulação de 3650 dias - frequência observada x teórica:
+    Ensolarado : simulado 0.3892 | teórico 0.3889 | erro 0.0003
+    Nublado    : simulado 0.3333 | teórico 0.3333 | erro 0.0000
+    Chuvoso    : simulado 0.2775 | teórico 0.2778 | erro 0.0003
+
+(e) Matriz estimada a partir dos 10 anos de 'dados observados':
+[[0.6129 0.2871 0.0999]
+ [0.2936 0.4112 0.2952]
+ [0.1905 0.305  0.5044]]
+    Maior diferença em relação à P verdadeira: 0.0129
+
+==================================================================
+PROBLEMA 2 - COBRAS E ESCADAS (cadeia absorvente)
+==================================================================
+
+Matriz P: 101x101 | Q (transitórios): 100x100
+(a) Número esperado de jogadas para terminar (início na casa 0): 39.23
+
+(b) Casas mais visitadas, em média, por partida:
+    casa  99: 1.552 visitas
+    casa  44: 1.100 visitas
+    casa  26: 1.056 visitas
+    casa   0: 1.000 visitas
+    casa  84: 0.993 visitas
+
+(c) Probabilidade de terminar em até n jogadas (cálculo exato):
+    até  10 jogadas: 2.22%
+    até  20 jogadas: 22.34%
+    até  30 jogadas: 45.94%
+    até  50 jogadas: 75.87%
+    até 100 jogadas: 96.90%
+    Mínimo de jogadas possível: 7
+    Mediana: 32 jogadas
+
+(d) Monte Carlo com 20000 partidas:
+    média simulada = 39.07 ± 0.35 (IC 95%) | teórico = 39.23
+    P(até 20 jogadas) simulada = 22.55% | teórica = 22.34%
+
+Gráficos salvos em:
+    /Users/marialuizadornelas/Desktop/Trabalho LFA/Markov-Chains-Project/graphics/grafico_clima_convergencia.png
+    /Users/marialuizadornelas/Desktop/Trabalho LFA/Markov-Chains-Project/graphics/grafico_cobras_escadas.png
+Resultados salvos em:
+    /Users/marialuizadornelas/Desktop/Trabalho LFA/Markov-Chains-Project/docs/saida_execucao.txt

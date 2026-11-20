@@ -93,4 +93,6 @@ As funções genéricas servem para qualquer Cadeia de Markov. Para aplicá-las 
 
 ## Autora
 
+Fernando Giardini
+Lara Gonçalves
 Maria Luiza Dornelas

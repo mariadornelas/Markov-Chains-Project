@@ -5,13 +5,29 @@ Problema 1 - Previsão do clima (cadeia regular)
 Problema 2 - Jogo Cobras e Escadas (cadeia absorvente)
 
 Requisitos: Python 3.9+, numpy, matplotlib
-Execução:   python markov_trabalho.py
+Execução:   python src/markov_trabalho.py   (a partir da raiz do projeto)
+
+Saídas:
+  graphics/  -> gráficos gerados (.png)
+  docs/      -> saida_execucao.txt com todos os resultados impressos
 """
+
+import sys
+from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")            # gera os gráficos em arquivo, sem abrir janela
 import matplotlib.pyplot as plt
+
+# Pastas do projeto, calculadas a partir da localização deste arquivo (src/).
+# Assim os arquivos vão sempre para o lugar certo, não importa de onde o
+# programa seja executado.
+RAIZ = Path(__file__).resolve().parent.parent
+PASTA_GRAFICOS = RAIZ / "graphics"
+PASTA_DOCS = RAIZ / "docs"
+ARQUIVO_SAIDA = PASTA_DOCS / "saida_execucao.txt"
 
 SEED = 42
 rng = np.random.default_rng(SEED)
@@ -124,7 +140,7 @@ def problema_clima():
     plt.legend()
     plt.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig("grafico_clima_convergencia.png", dpi=120)
+    plt.savefig(PASTA_GRAFICOS / "grafico_clima_convergencia.png", dpi=120)
     plt.close()
 
     return pi
@@ -232,13 +248,48 @@ def problema_cobras_escadas():
     plt.legend()
     plt.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig("grafico_cobras_escadas.png", dpi=120)
+    plt.savefig(PASTA_GRAFICOS / "grafico_cobras_escadas.png", dpi=120)
     plt.close()
 
     return t[0], amostras
 
 
+# =====================================================================
+# Saída simultânea no terminal e em arquivo
+# =====================================================================
+class Tee:
+    """Escreve tudo o que for impresso no terminal e também em um arquivo."""
+
+    def __init__(self, *destinos):
+        self.destinos = destinos
+
+    def write(self, texto):
+        for d in self.destinos:
+            d.write(texto)
+
+    def flush(self):
+        for d in self.destinos:
+            d.flush()
+
+
+def main():
+    PASTA_GRAFICOS.mkdir(exist_ok=True)
+    PASTA_DOCS.mkdir(exist_ok=True)
+
+    terminal = sys.stdout
+    with open(ARQUIVO_SAIDA, "w", encoding="utf-8") as arquivo:
+        sys.stdout = Tee(terminal, arquivo)
+        try:
+            print(f"Execução em {datetime.now():%d/%m/%Y %H:%M:%S}\n")
+            problema_clima()
+            problema_cobras_escadas()
+            print("\nGráficos salvos em:")
+            print(f"    {PASTA_GRAFICOS / 'grafico_clima_convergencia.png'}")
+            print(f"    {PASTA_GRAFICOS / 'grafico_cobras_escadas.png'}")
+            print(f"Resultados salvos em:\n    {ARQUIVO_SAIDA}")
+        finally:
+            sys.stdout = terminal
+
+
 if __name__ == "__main__":
-    problema_clima()
-    problema_cobras_escadas()
-    print("\nGráficos salvos: grafico_clima_convergencia.png, grafico_cobras_escadas.png")
+    main()

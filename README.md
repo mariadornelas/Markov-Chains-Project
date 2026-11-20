@@ -91,8 +91,8 @@ As funções genéricas servem para qualquer Cadeia de Markov. Para aplicá-las 
 - ROSS, S. M. *Introduction to Probability Models*. 12. ed. Academic Press, 2019.
 - ALTHOEN, S. C.; KING, L.; SCHILLING, K. How long is a game of Snakes and Ladders? *The Mathematical Gazette*, v. 77, n. 478, p. 71-76, 1993.
 
-## Autora
+## Autores
 
-Fernando Giardini
-Lara Gonçalves
-Maria Luiza Dornelas
+- Fernando Giardini
+- Lara Gonçalves
+- Maria Luiza Dornelas
